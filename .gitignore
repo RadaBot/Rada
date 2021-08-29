@@ -1,0 +1,11 @@
+// Node
+node_modules
+
+// Private
+.env
+src/config.js
+TODO.txt
+
+// Misc
+.idea
+.vscode
