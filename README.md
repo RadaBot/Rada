@@ -20,8 +20,8 @@ This bot is the first proper bot that I have open sourced. I prefer to keep bots
 Of course, with this being a major rewrite, there's going to be (in this case, quite a lot) of changes. I will list any major changes below, and continue to update as i go.
 
 - (-) Modlogs: These will be completely removed in this rewrite. There are plenty of other bots that actually do logging very well, but for rada, it impacts stability.
-- (-) Polls: These will be removed due to wanting to stay away from the message/messageCreate event due to the future of discord.js / the discord API.
-- (-) Upload: This will be removed due to slash commands bring unable to accept a MessageAttachment or image as an argument.
+- (-) Polls: These will be removed due to wanting to stay away from the message/messageCreate and/or reaction events due to the future of discord.js / the discord API.
+- (-) Upload: This will be removed due to slash commands being unable to accept a MessageAttachment or image as an argument.
 - (i) Grouped commands: A few of the commands have been condensed into groups (subcommands). For example, instead of having `r!addemoji <whatever>`, it has been condensed to `/emote add <whatever>`. Other commands that have this change: **/settings**, **/welcomesettings**, **/info**, **/emote**, **/role**, **/channel**
 - (i) Emote add: As mentioned above, this command will no longer accept a MessageAttachment or image as the emote to add. You must make it a URL. (Popular place for this is imgur etc.)
 - (-) Fun: These commands will be removed to save some slash command space.
