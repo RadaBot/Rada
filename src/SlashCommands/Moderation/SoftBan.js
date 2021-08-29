@@ -59,8 +59,7 @@ module.exports = {
                 embed
                 .setDescription(`Are you sure you want to ban \`${user.tag}\`?`)
             ],
-            components: [row],
-            ephemeral: true
+            components: [row]
         });
         let firstInteraction = interaction;
         client.on("interactionCreate", async(interaction) => {
@@ -80,8 +79,7 @@ module.exports = {
                                     .setDescription(`${client.emotes.success} \`${user.tag}\` has been softbanned from the server`)
                                     .addField('Reason', reason)
                                 ],
-                                components: [],
-                                ephemeral: false
+                                components: []
                             })
                         })
                         .catch(async(e) => {
@@ -100,8 +98,7 @@ module.exports = {
                     if (interaction.user.id !== firstInteraction.user.id) return;
                     await firstInteraction.editReply({
                         embeds: [embed.setDescription(`${client.emotes.success} Cancelled`)],
-                        components: [],
-                        ephemeral: true
+                        components: []
                     });
                     break;
             }

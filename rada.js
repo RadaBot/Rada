@@ -12,11 +12,13 @@ const Flipnote = require('alexflipnote.js');
 const google = require('google-it');
 const chalk = require('chalk');
 
-const database = require('./src/handlers/Database');
+const database = require('./src/handlers/DatabaseModal');
 const Logger = require('./lib/classes/Logger');
 const Util = require('./lib/classes/Util');
 const config = require('./src/config');
 const ButtonPaginator = require('./lib/classes/ButtonPaginator');
+const ButtonConfirmer = require('./lib/classes/ButtonConfirmer');
+const DatabaseHandler = require('./src/handlers/DatabaseHandler');
 const SlashHandler = require('./src/handlers/SlashHandler');
 const { emotes, clientColor, badges } = require('./lib/util/constants');
 
@@ -51,7 +53,9 @@ class RadaClient extends AkairoClient {
         this.emotes = emotes;
         this.logger = new Logger(this);
         this.settings = new MongooseProvider(database);
+        this.databaseHandler = new DatabaseHandler(this);
         this.buttonPaginator = new ButtonPaginator(this);
+        this.buttonConfirmer = new ButtonConfirmer(this);
         this.chalk = chalk;
         this.Util = Util;
         this.flipnote = new Flipnote(process.env.FLIPNOTE);

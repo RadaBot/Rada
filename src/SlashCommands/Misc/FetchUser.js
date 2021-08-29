@@ -25,8 +25,8 @@ module.exports = {
             });
         }
         try {
-            await client.users.fetch(userId);
-            let user = client.users.cache.get(userId);
+            let fetch = await client.users.fetch(userId, { force: true });
+            let user = client.users.cache.get(fetch.id);
             let mutualCount = client.guilds.cache.filter(g => g.members.cache.has(user.id)).map(g => g.name).length;
             let badges = client.displayFlags(user);
             let embed = client.util.embed()
@@ -41,6 +41,9 @@ module.exports = {
                 .addField(`Mutual servers with ${client.user.username}`, mutualCount == 0 ? 'No mutual servers' : `Found ${mutualCount} mutual server${mutualCount > 1 ? 's' : ''}`)
             if (badges.length > 0 && badges[0]) {
                 embed.addField('Badges', badges.join(" "))
+            }
+            if (fetch.bannerURL()) {
+                embed.setImage(fetch.bannerURL({ dynamic: true, size: 512 }))
             }
             return await interaction.reply({
                 embeds: [embed]

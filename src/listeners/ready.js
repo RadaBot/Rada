@@ -26,8 +26,8 @@ module.exports = class ReadyListener extends Listener {
             }]
         })
         this.client.clientLoader.push(...[
-            `[Gateway]  Connection established to ${this.client.chalk.underline(this.client.ws.gateway)} (v${this.client.options.ws.version})`,
-            `[API]      Connection established to ${this.client.chalk.underline(this.client.options.http.api)} (v${this.client.options.http.version})`,
+            `[Gateway]  Connection established to ${this.client.chalk.underline(this.client.ws.gateway)}`,
+            `[API]      Connection established to ${this.client.chalk.underline(this.client.options.http.api)}`,
             '[Client]   Presence set',
             `[Client]   Logged in as ClientUser ${this.client.user.tag}`
         ])

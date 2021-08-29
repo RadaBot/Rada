@@ -72,8 +72,7 @@ module.exports = {
                 embed
                 .setDescription(`Are you sure you want to ban \`${user.tag}\`?`)
             ],
-            components: [row],
-            ephemeral: true
+            components: [row]
         });
         let firstInteraction = interaction;
         client.on("interactionCreate", async(interaction) => {
@@ -112,8 +111,7 @@ module.exports = {
                     if (interaction.user.id !== firstInteraction.user.id) return;
                     await firstInteraction.editReply({
                         embeds: [embed.setDescription(`${client.emotes.success} Cancelled`)],
-                        components: [],
-                        ephemeral: true
+                        components: []
                     });
                     break;
             }
