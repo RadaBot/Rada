@@ -2,7 +2,6 @@ const { Routes } = require('discord-api-types/v9');
 const { REST } = require('@discordjs/rest');
 const { readdirSync, statSync } = require('fs');
 const path = require('path');
-const chalk = require('chalk');
 require('dotenv').config();
 const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
 
@@ -61,20 +60,18 @@ class SlashHandler {
             this.commands.push(command.data.toJSON());
             this.client.slashCommands.set(command.data.name, command);
         }
-        this.client.guilds.cache.forEach(async(guild) => {
-            try {
-                // await rest.put(Routes.applicationCommands(this.client.user.id), {
-                await rest.put(Routes.applicationGuildCommands(this.client.user.id, '770757172341506061'), {
-                    body: this.commands
-                });
-            } catch (error) {
-                this.client.logger.error([
-                    `Loading slash commands for ${chalk.underline(guild.name)} failed`,
-                    `Type:   ${error.name}`,
-                    `Error:  ${error.message}`
-                ]);
-            }
-        })
+        try {
+            // await rest.put(Routes.applicationCommands(this.client.user.id), {
+            await rest.put(Routes.applicationGuildCommands(this.client.user.id, '770757172341506061'), {
+                body: this.commands
+            });
+        } catch (error) {
+            this.client.logger.error([
+                'Loading slash commands for failed',
+                `Type:   ${error.name}`,
+                `Error:  ${error.message}`
+            ]);
+        }
     }
 }
 
