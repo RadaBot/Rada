@@ -19,6 +19,12 @@ module.exports = class InteractionListener extends Listener {
 
         const command = this.client.slashCommands.get(interaction.commandName);
         if (!command) return;
+        if (command.ownerOnly && !this.client.ownerID.some(id => interaction.user.id === id)) {
+            return await interaction.reply({
+                content: 'Nice try 😅\nThis slash command is owner only.',
+                ephemeral: true
+            });
+        }
         if (command.permissions && command.permissions.length > 0 && command.permissions.some(permission => !interaction.member.permissions.has(permission))) {
             return await interaction.reply({
                 content: 'You don\'t have the correct permissions to run this command.',
@@ -28,12 +34,6 @@ module.exports = class InteractionListener extends Listener {
         if (command.permissions && command.permissions.length > 0 && command.permissions.some(permission => !interaction.guild.me.permissions.has(permission))) {
             return await interaction.reply({
                 content: `I don\'t have the correct permissions to run this command. I need:\n${command.permissions.map(perm => this.client.Util.toTitleCase(perm.split(/_/g).join(' '))).join(', ')}`,
-                ephemeral: true
-            });
-        }
-        if (command.ownerOnly && this.client.ownerID.some(id => interaction.user.id !== id)) {
-            return await interaction.reply({
-                content: 'Nice try 😅\nThis slash command is owner only.',
                 ephemeral: true
             });
         }

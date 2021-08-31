@@ -30,7 +30,7 @@ require('dotenv').config();
 class RadaClient extends AkairoClient {
     constructor() {
         super({
-            ownerID: ['286509757546758156'],
+            ownerID: config.owners,
         }, {
             fetchAllMembers: false,
             allowedMentions: {
