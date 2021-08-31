@@ -67,7 +67,7 @@ class SlashHandler {
             });
         } catch (error) {
             this.client.logger.error([
-                'Loading slash commands for failed',
+                'Loading slash commands failed',
                 `Type:   ${error.name}`,
                 `Error:  ${error.message}`
             ]);
