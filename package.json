@@ -1,32 +1,33 @@
 {
-  "name": "rada",
-  "version": "4.0.0",
-  "description": "The Rada V13 rewrite for slash commands / interactions",
-  "main": "rada.js",
-  "directories": {
-    "lib": "lib"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "br4d",
-  "license": "ISC",
-  "dependencies": {
-    "@aero/centra": "^1.0.7",
-    "@discordjs/rest": "^0.1.0-canary.0",
-    "@skyra/timestamp": "^1.0.0",
-    "alexflipnote.js": "^2.5.0",
-    "chalk": "^4.1.2",
-    "cron": "^1.8.2",
-    "discord-akairo": "github:Iskawo/discord-akairo",
-    "discord.js": "^13.2.0-dev.1630065890.b89280a",
-    "discord.js-docs": "^0.1.2",
-    "dotenv": "^10.0.0",
-    "fs": "^0.0.1-security",
-    "google-it": "^1.6.2",
-    "js-beautify": "^1.14.0",
-    "mathjs": "^9.4.4",
-    "mongoose": "^5.13.8",
-    "path": "^0.12.7"
-  }
+    "name": "rada",
+    "version": "2.0.0",
+    "description": "The Rada V13 rewrite for slash commands / interactions",
+    "main": "rada.js",
+    "directories": {
+        "lib": "lib"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node rada.js"
+    },
+    "author": "br4d",
+    "license": "ISC",
+    "dependencies": {
+        "@aero/centra": "^1.0.7",
+        "@discordjs/rest": "^0.1.0-canary.0",
+        "@skyra/timestamp": "^1.0.0",
+        "alexflipnote.js": "^2.5.0",
+        "chalk": "^4.1.2",
+        "cron": "^1.8.2",
+        "discord-akairo": "github:Iskawo/discord-akairo",
+        "discord.js": "^13.2.0-dev.1630065890.b89280a",
+        "discord.js-docs": "^0.1.2",
+        "dotenv": "^10.0.0",
+        "fs": "^0.0.1-security",
+        "google-it": "^1.6.2",
+        "js-beautify": "^1.14.0",
+        "mathjs": "^9.4.4",
+        "mongoose": "^5.13.8",
+        "path": "^0.12.7"
+    }
 }
