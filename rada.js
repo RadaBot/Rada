@@ -9,6 +9,7 @@ const {
 const { Intents, Collection } = require('discord.js');
 const { Timestamp } = require('@skyra/timestamp');
 const Flipnote = require('alexflipnote.js');
+const beautify = require('js-beautify').js;
 const google = require('google-it');
 const chalk = require('chalk');
 
@@ -19,6 +20,7 @@ const config = require('./src/config');
 const ButtonPaginator = require('./lib/classes/ButtonPaginator');
 const ButtonConfirmer = require('./lib/classes/ButtonConfirmer');
 const DatabaseHandler = require('./src/handlers/DatabaseHandler');
+const RadaScheduler = require('./lib/modules/RadaScheduler');
 const SlashHandler = require('./src/handlers/SlashHandler');
 const { emotes, clientColor, badges } = require('./lib/util/constants');
 
@@ -30,10 +32,13 @@ class RadaClient extends AkairoClient {
         super({
             ownerID: ['286509757546758156'],
         }, {
-            disableMentions: 'everyone',
             fetchAllMembers: false,
             allowedMentions: {
-                repliedUser: false
+                repliedUser: true,
+                parse: [
+                    'users',
+                    'roles'
+                ]
             },
             intents: [
                 Intents.FLAGS.GUILDS,
@@ -51,11 +56,17 @@ class RadaClient extends AkairoClient {
         this.classLoader = [];
         this.clientLoader = [];
         this.emotes = emotes;
+        this.reminders = {
+            current: [],
+            old: []
+        };
         this.logger = new Logger(this);
+        this.RadaReminder = new RadaScheduler(this);
         this.settings = new MongooseProvider(database);
         this.databaseHandler = new DatabaseHandler(this);
         this.buttonPaginator = new ButtonPaginator(this);
         this.buttonConfirmer = new ButtonConfirmer(this);
+        this.beautify = beautify
         this.chalk = chalk;
         this.Util = Util;
         this.flipnote = new Flipnote(process.env.FLIPNOTE);

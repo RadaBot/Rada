@@ -1,10 +1,9 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { inspect } = require('util');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('settings')
-        .setDescription('The bot\'s main settings')
+        .setDescription('Configure the bot\'s main settings')
         .addSubcommand((subcommand) => subcommand
             .setName('antilink')
             .setDescription('The module for auto deleting invite links')
@@ -51,18 +50,9 @@ module.exports = {
                 .setDescription('Do you want to reset to default?')
                 .addChoice('Yes', 'true')
             )
-        )
-        .addSubcommand((subcommand) => subcommand
-            .setName('data')
-            .setDescription('Your data we have stored in our database')
-            .addStringOption((option) => option
-                .setName('clear')
-                .setDescription('Do you want to clear your data?')
-                .addChoice('Yes', 'true')
-            )
         ),
     category: 'Config',
-    description: 'The bot\'s main settings',
+    description: 'Configure the bot\'s main settings',
     permissions: ['MANAGE_MESSAGES', 'MANAGE_GUILD', 'MANAGE_ROLES'],
     async execute(interaction, client) {
         let subcommand = interaction.options.getSubcommand();
@@ -215,36 +205,7 @@ module.exports = {
 
             break;
 
-            case 'data':
-                let currentData = await client.settings.items.get(interaction.user.id) || [];
-                let formatted = client.Util.codeBlock('js', inspect(currentData, { depth: 1 }))
-                let clear = interaction.options.getString('clear');
-                if (!clear) {
-                    embed.setTitle('Your data')
-                        .setDescription(formatted)
-                    return await interaction.reply({ embeds: [embed] })
-                }
-                if (currentData.length < 1) {
-                    embed.setTitle('Your data')
-                        .setDescription('Awesome! You have no data to clear')
-                    return await interaction.reply({ embeds: [embed] })
-                }
-                embed.setTitle('Your data')
-                    .setDescription(formatted)
-                    .addField('Are you sure?', '⚠️ Are you sure you want to clear your data? This cannot be undone. (Use the buttons below)')
-                let cleared = client.util.embed()
-                    .setColor(client.misc.color)
-                    .setTitle('Your data')
-                    .setDescription(`Your data has been cleared!\n${client.Util.codeBlock('js', '[]')}`)
-                    .setFooter(`Requested by ${interaction.user.username}`)
-                    .setTimestamp()
-                await client.buttonConfirmer.start([embed, cleared], interaction, false, this.clearData)
-            break;
-
         }
-    },
-    async clearData(client, interaction) {
-        await client.settings.clear(interaction.user.id)
     },
     currentAntilink(client, embed, current) {
         embed.setTitle(`${client.user.username} antilink settings`)

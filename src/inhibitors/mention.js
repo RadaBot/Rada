@@ -2,13 +2,13 @@ const { Inhibitor } = require('discord-akairo');
 
 module.exports = class Mention extends Inhibitor {
     constructor() {
-        super('messageCreate', {
+        super('mention', {
             type: 'all'
         });
     }
 
     async exec(message) {
-        if (message.channel.type === 'dm') return;
+        if (message.channel.type === 'DM') return;
         const pings = [`<@${this.client.user.id}>`, `<@!${this.client.user.id}>`];
 
         let slashCommandsAllowed = true;

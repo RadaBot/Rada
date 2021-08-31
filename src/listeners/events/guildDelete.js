@@ -17,7 +17,7 @@ module.exports = class GuildDeleteListener extends Listener {
                 type: 'WATCHING'
             }
         });
-        let fetch = await this.client.users.fetch(guild.ownerID);
+        let fetch = await this.client.users.fetch(guild.ownerId);
         let owner = this.client.users.cache.get(fetch.id);
         this.client.logger.info(`${this.client.user.username} has been removed from the guild ${guild.name}[${guild.id}]`);
         let embed = this.client.util.embed()

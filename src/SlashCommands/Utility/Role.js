@@ -15,15 +15,11 @@ module.exports = {
             .addBooleanOption((option) => option
                 .setName('mentionable')
                 .setDescription('Do you want the role to be mentionable')
-                // .addChoice('Yes', true)
-                // .addChoice('No', false)
                 .setRequired(true)
             )
             .addBooleanOption((option) => option
                 .setName('hoisted')
                 .setDescription('Do you want the role to be hoisted')
-                // .addChoice('Yes', true)
-                // .addChoice('No', false)
                 .setRequired(true)
             )
             .addStringOption((option) => option
@@ -58,14 +54,10 @@ module.exports = {
             )
             .addBooleanOption((option) => option
                 .setName('hoist')
-                // .addChoice('Yes', true)
-                // .addChoice('No', false)
                 .setDescription('This is if you want the role hoisted')
             )
             .addBooleanOption((option) => option
                 .setName('mentionable')
-                // .addChoice('Yes', true)
-                // .addChoice('No', false)
                 .setDescription('This is if you want the role mentionable')
             )
         )
@@ -196,7 +188,7 @@ module.exports = {
                 }
                 let userGivePosition = roleToGive.position - interaction.member.roles.highest.position;
                 let botGivePosition = roleToGive.position - interaction.guild.me.roles.highest.position;
-                if (roleToGive.position >= interaction.member.roles.highest.position && interaction.user.id !== interaction.guild.ownerID) {
+                if (roleToGive.position >= interaction.member.roles.highest.position && interaction.user.id !== interaction.guild.ownerId) {
                     return await interaction.reply({
                         content: `That role is ${userGivePosition === 0 ? 'equal to your highest role' : `\`${userGivePosition}\` places higher than your highest role`}`,
                         ephemeral: true
@@ -245,7 +237,7 @@ module.exports = {
                 }
                 let userRemovePosition = roleToRemove.position - interaction.member.roles.highest.position;
                 let botRemovePosition = roleToRemove.position - interaction.guild.me.roles.highest.position;
-                if (roleToRemove.position >= interaction.member.roles.highest.position && interaction.user.id !== interaction.guild.ownerID) {
+                if (roleToRemove.position >= interaction.member.roles.highest.position && interaction.user.id !== interaction.guild.ownerId) {
                     return await interaction.reply({
                         content: `That role is ${userRemovePosition === 0 ? 'equal to your highest role' : `\`${userRemovePosition}\` places higher than your highest role`}`,
                         ephemeral: true
