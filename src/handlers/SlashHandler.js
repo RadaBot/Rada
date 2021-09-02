@@ -25,7 +25,7 @@ class SlashHandler {
             let commands = this.getCommands(path.join(this.directory, category));
             let commandData = [];
             for (const command of commands) {
-                let data = require(`${process.cwd()}\\${command}`)
+                let data = require(`${process.cwd()}/${command}`)
                 commandData.push({
                     name: data.data.name,
                     description: data.description,
@@ -56,7 +56,7 @@ class SlashHandler {
     async loadCommands() {
         let files = this.getCommands(this.directory);
         for (let file of files) {
-            const command = require(`${process.cwd()}\\${file}`);
+            const command = require(`${process.cwd()}/${file}`);
             this.commands.push(command.data.toJSON());
             this.client.slashCommands.set(command.data.name, command);
         }
