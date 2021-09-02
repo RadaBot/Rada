@@ -61,8 +61,7 @@ class SlashHandler {
             this.client.slashCommands.set(command.data.name, command);
         }
         try {
-            // await rest.put(Routes.applicationCommands(this.client.user.id), {
-            await rest.put(Routes.applicationGuildCommands(this.client.user.id, '778361102709817384'), {
+            await rest.put(Routes.applicationCommands(this.client.user.id), {
                 body: this.commands
             });
         } catch (error) {
