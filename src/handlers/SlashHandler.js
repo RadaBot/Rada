@@ -22,7 +22,7 @@ class SlashHandler {
         let formatted = [];
         const categories = readdirSync(this.directory);
         for (const category of categories) {
-            let commands = this.getCommands(path.join(this.directory, category));
+            let commands = this.getCommands(path.join(this.directory, category).split(/\\/g).join('/'));
             let commandData = [];
             for (const command of commands) {
                 let data = require(`${process.cwd()}/${command}`)
@@ -43,7 +43,7 @@ class SlashHandler {
         (function read(dir) {
             const files = readdirSync(dir);
             for (const file of files) {
-                const filepath = path.join(dir, file);
+                const filepath = path.join(dir, file).split(/\\/g).join('/');
                 if (statSync(filepath).isDirectory()) {
                     read(filepath);
                 } else {
@@ -62,6 +62,7 @@ class SlashHandler {
         }
         try {
             await rest.put(Routes.applicationCommands(this.client.user.id), {
+            // await rest.put(Routes.applicationGuildCommands(this.client.user.id, '778361102709817384'), {
                 body: this.commands
             });
         } catch (error) {
