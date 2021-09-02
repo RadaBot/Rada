@@ -4,6 +4,7 @@ const { readdirSync, statSync } = require('fs');
 const path = require('path');
 require('dotenv').config();
 const rest = new REST({ version: '9' }).setToken(process.env.TOKEN);
+const { production, devGuild } = require('../config');
 
 class SlashHandler {
     constructor(client, {
@@ -61,10 +62,15 @@ class SlashHandler {
             this.client.slashCommands.set(command.data.name, command);
         }
         try {
-            await rest.put(Routes.applicationCommands(this.client.user.id), {
-            // await rest.put(Routes.applicationGuildCommands(this.client.user.id, '778361102709817384'), {
-                body: this.commands
-            });
+            if (production) {
+                return await rest.put(Routes.applicationCommands(this.client.user.id), {
+                    body: this.commands
+                });
+            } else {
+                return await rest.put(Routes.applicationGuildCommands(this.client.user.id, devGuild), {
+                    body: this.commands
+                });
+            }
         } catch (error) {
             this.client.logger.error([
                 'Loading slash commands failed',

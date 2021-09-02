@@ -1,5 +1,6 @@
 const Util = require('../../../lib/classes/Util');
 const { Listener } = require('discord-akairo');
+const { production } = require('../../config');
 
 module.exports = class InteractionListener extends Listener {
     constructor() {
@@ -33,7 +34,7 @@ module.exports = class InteractionListener extends Listener {
         }
         if (command.permissions && command.permissions.length > 0 && command.permissions.some(permission => !interaction.guild.me.permissions.has(permission))) {
             return await interaction.reply({
-                content: `I don\'t have the correct permissions to run this command. I need:\n${command.permissions.map(perm => this.client.Util.toTitleCase(perm.split(/_/g).join(' '))).join(', ')}`,
+                content: `I don\'t have the correct permissions to run this command. I need:\n${command.permissions.map(perm => Util.toTitleCase(perm.split(/_/g).join(' '))).join(', ')}`,
                 ephemeral: true
             });
         }
@@ -45,6 +46,16 @@ module.exports = class InteractionListener extends Listener {
                 content: `There was an error executing this command:\n${Util.inlineCode(error.message)}`,
                 ephemeral: true
             });
+            let embed = this.client.util.embed()
+                .setColor(this.client.misc.color)
+                .setTitle('Error')
+                .setDescription(`Guild: **${interaction.guild.name}**\nUser: \`${interaction.user.tag} (${interaction.user.id})\`\nCommand: \`${command.data.name}\`\n\n${Util.codeBlock('properties', error.stack)}`)
+                .setTimestamp()
+            if (production) {
+                this.client.channels.cache.get('787745780432764948').send({
+                    embeds: [embed]
+                });
+            }
         }
     }
 }
