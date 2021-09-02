@@ -1,5 +1,5 @@
 const { Listener } = require('discord-akairo');
-// const { readdirSync } = require('fs');
+const { Collection } = require('discord.js');
 
 module.exports = class ReadyListener extends Listener {
     constructor() {
@@ -7,9 +7,21 @@ module.exports = class ReadyListener extends Listener {
             emitter: 'client',
             event: 'ready'
         });
+        this.filtered = new Collection();
     }
 
     async exec() {
+        setInterval(async() => {
+            this.client.logger.debug('[TaskRunner] Running periodic schedule checker')
+            await this.client.settings.items.forEach(i => {
+                if (i['reminders.current'] && i['reminders.current'].length > 0) {
+                    this.filtered.set(i['reminders.current'][0].user, i['reminders.current'])
+                }
+            })
+            if (this.filtered.size > 0) {
+                this.client.emit('scheduleChecker', this.filtered)
+            }
+        }, 60000)
         await this.client.slashHandler.init();
         let slashCommands = this.client.slashHandler.getCommands('./src/SlashCommands/');
         this.client.logger.info(this.client.classLoader)

@@ -40,6 +40,7 @@ module.exports = {
             });
         }
         const warnCase = {
+            user: user.id,
             id: client.Util.generateID(),
             guild_id: interaction.guild.id,
             moderator: `\`${interaction.user.tag} (${interaction.user.id})\``,

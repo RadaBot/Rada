@@ -17,17 +17,22 @@
         "@discordjs/rest": "^0.1.0-canary.0",
         "@skyra/timestamp": "^1.0.0",
         "alexflipnote.js": "^2.5.0",
+        "body-parser": "^1.19.0",
         "chalk": "^4.1.2",
+        "cors": "^2.8.5",
         "cron": "^1.8.2",
         "discord-akairo": "github:Iskawo/discord-akairo",
         "discord.js": "^13.2.0-dev.1630065890.b89280a",
         "discord.js-docs": "^0.1.2",
         "dotenv": "^10.0.0",
+        "express": "^4.17.1",
         "fs": "^0.0.1-security",
         "google-it": "^1.6.2",
         "js-beautify": "^1.14.0",
         "mathjs": "^9.4.4",
         "mongoose": "^5.13.8",
+        "node-fetch": "^3.0.0",
+        "os": "^0.1.2",
         "path": "^0.12.7"
     }
 }

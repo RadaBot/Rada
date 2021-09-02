@@ -15,12 +15,14 @@ const chalk = require('chalk');
 
 const database = require('./src/handlers/DatabaseModal');
 const Logger = require('./lib/classes/Logger');
+const server = require('./lib/api/RadaAPI');
 const Util = require('./lib/classes/Util');
 const config = require('./src/config');
 const ButtonPaginator = require('./lib/classes/ButtonPaginator');
 const ButtonConfirmer = require('./lib/classes/ButtonConfirmer');
 const DatabaseHandler = require('./src/handlers/DatabaseHandler');
-const RadaScheduler = require('./lib/modules/RadaScheduler');
+// const RadaScheduler = require('./lib/modules/RadaScheduler');
+const RadaReminder = require('./lib/modules/RadaReminder');
 const SlashHandler = require('./src/handlers/SlashHandler');
 const { emotes, clientColor, badges } = require('./lib/util/constants');
 
@@ -55,13 +57,14 @@ class RadaClient extends AkairoClient {
         }
         this.classLoader = [];
         this.clientLoader = [];
+        this.slashCommandsEnabled = true;
         this.emotes = emotes;
-        this.reminders = {
-            current: [],
-            old: []
-        };
+        let api = new server.RadaAPI(this).setup();
+        api.listen(config.ApiPort, () => {
+            this.clientLoader.push(`[API]      Connection established to ${this.chalk.underline(`${config.profuction ? 'https://api.radabot.net' : 'http://localhost'}:${config.ApiPort}`)}`)
+        });
         this.logger = new Logger(this);
-        this.RadaReminder = new RadaScheduler(this);
+        this.RadaReminder = new RadaReminder(this);
         this.settings = new MongooseProvider(database);
         this.databaseHandler = new DatabaseHandler(this);
         this.buttonPaginator = new ButtonPaginator(this);
@@ -110,6 +113,7 @@ class RadaClient extends AkairoClient {
         await this.settings.init();
         this.clientLoader.push(`[Database] Connection established to ${this.chalk.underline(config.mongooseUrl)}`)
         await this.buttonPaginator.init();
+        await this.RadaReminder.init();
         await super.login(token);
     }
 
@@ -216,7 +220,6 @@ class RadaClient extends AkairoClient {
                 11: 'December'
             },
             date: {
-                0: 'th',
                 1: 'st',
                 2: 'nd',
                 3: 'rd',
@@ -225,13 +228,14 @@ class RadaClient extends AkairoClient {
                 6: 'th',
                 7: 'th',
                 8: 'th',
-                9: 'th'
+                9: 'th',
+                0: 'th'
             }
         }
         let dayOfWeek = formats.days[date.getDay()];
         let dayOfMonth = date.getDate().toString();
         let month = formats.month[date.getMonth()];
-        let formatted = dayOfMonth.substring(2) ? formats.date[dayOfMonth.substring(2)] : formats.date[dayOfMonth.substring(1)];
+        let formatted = dayOfMonth.substring(2).length > 0 ? formats.date[dayOfMonth.substring(2)] : formats.date[dayOfMonth];
         return `${dayOfWeek} ${dayOfMonth}${formatted} ${month} | ${date.toLocaleTimeString()}`;
     }
 

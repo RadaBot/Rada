@@ -4,6 +4,7 @@ const { MessageAttachment } = require('discord.js');
 const Stopwatch = require('../../../lib/classes/Stopwatch');
 const Util = require('../../../lib/classes/Util');
 const { inspect } = require('util');
+const ms = require('ms')
 
 module.exports = {
     data: new SlashCommandBuilder()
