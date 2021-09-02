@@ -10,7 +10,8 @@ module.exports = class VoteChannel extends Inhibitor {
 
     async exec(message) {
         if (message.channel.type === 'DM') return;
-        if (this.client.settings.get(message.guild.id, 'vote', null)) {
+        let votechannel = this.client.settings.get(message.guild.id, 'vote', null)
+        if (votechannel && message.channel.id === votechannel) {
             if (!message.guild.me.permissions.has('ADD_REACTIONS') || !message.channel.permissionsFor(message.guild.me).has('ADD_REACTIONS')) {
                 return message.reply('**This channel is set as the vote channel, but I don\'t have permission to add reactions**');
             }
