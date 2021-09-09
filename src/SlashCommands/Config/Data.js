@@ -35,7 +35,10 @@ module.exports = {
 
             case 'user':
                 let currentData = await client.settings.items.get(interaction.user.id) || [];
-                let formatted = client.Util.codeBlock('js', inspect(currentData, { depth: 1 }))
+                let formatted = client.Util.codeBlock('js', inspect(currentData, {
+                    depth: 2,
+                    maxStringLength: 150
+                }))
                 let clear = interaction.options.getString('clear');
                 if (!clear) {
                     embed.setTitle('Your data')
@@ -60,8 +63,11 @@ module.exports = {
             break;
 
             case 'guild':
-                let currentGuildData = await client.settings.items.get(interaction.guild.id) || [];
-                let guildFormatted = client.Util.codeBlock('js', inspect(currentGuildData, { depth: 1 }))
+                let currentGuildData = await client.databaseHandler.getAllGuildData(interaction.guild.id) || [];
+                let guildFormatted = client.Util.codeBlock('js', inspect(currentGuildData, {
+                    depth: 2,
+                    maxStringLength: 150
+                }))
                 let clearG = interaction.options.getString('clear');
                 if (interaction.user.id !== interaction.guild.ownerId) {
                     embed.setTitle('Error')
@@ -100,5 +106,6 @@ module.exports = {
     },
     async clearGuildData(client, interaction) {
         await client.settings.clear(interaction.guild.id)
+        await client.databaseHandler.clearGuildWarnings(interaction.guild.id);
     }
 }

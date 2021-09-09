@@ -65,7 +65,7 @@ module.exports = {
             case 'antilink':
                 let toggle = interaction.options.getString('toggle');
                 let resetAntilink = interaction.options.getString('reset');
-                let currentAL = await client.settings.get(interaction.guild.id, 'antilink', 'off');
+                let currentAL = await client.settings.get(interaction.guild.id, 'antilink', false);
                 if (resetAntilink) {
                     if (currentAL === 'off') {
                         embed.addField('Failed', 'The antilink is already \`off\`')
@@ -73,7 +73,7 @@ module.exports = {
                             embeds: [embed]
                         })
                     }
-                    await client.settings.set(interaction.guild.id, 'antilink', 'off');
+                    await client.settings.set(interaction.guild.id, 'antilink', false);
                     embed.addField(`Antilink updated`, `The antilink has been reset`)
                     return await interaction.reply({
                         embeds: [embed]
@@ -90,7 +90,7 @@ module.exports = {
                         embeds: [embed]
                     })
                 }
-                await client.settings.set(interaction.guild.id, 'antilink', toggle);
+                await client.settings.set(interaction.guild.id, 'antilink', toggle === 'on' ? true : false);
                 embed.addField(`Antilink updated`, `The antilink is now \`${toggle}\``)
                 return await interaction.reply({
                     embeds: [embed]

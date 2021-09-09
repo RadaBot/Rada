@@ -82,4 +82,37 @@ module.exports = class DatabaseHandler {
         await this.client.settings.set(user.id, 'reminders.old', array);
     }
 
+    getAllGuildData = async (guild) => {
+        let warnings = [];
+        let filteredCollection = this.client.settings.items.filter(i => i.warnings && i.warnings.length > 0);
+        let mappedCollection = filteredCollection.map(i => i.warnings);
+        for (const warns of mappedCollection) {
+            for (const warn of warns) {
+                if (warn.guild_id === guild) {
+                    warnings.push(warn)
+                }
+            }
+        }
+        let data = await this.client.settings.items.get(guild);
+        return warnings.length < 1 ? data : { ...data, warnings };
+    }
+
+    clearGuildWarnings = async(guild) => {
+        let warnings = [];
+        let filteredCollection = this.client.settings.items.filter(i => i.warnings && i.warnings.length > 0);
+        let mappedCollection = filteredCollection.map(i => i.warnings);
+        for (const warns of mappedCollection) {
+            for (const warn of warns) {
+                if (warn.guild_id === guild) {
+                    warnings.push(warn)
+                }
+            }
+        }
+        warnings.forEach(async(warning) => {
+            const key = `${warning.guild_id}.${warning.user}`;
+            await this.client.settings.clear(key, 'warnings');
+            return true;
+        })
+    }
+
 }
