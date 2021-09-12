@@ -115,4 +115,18 @@ module.exports = class DatabaseHandler {
         })
     }
 
+    addFollower = async (user, follower) => {
+        let array = [];
+        let db = this.client.settings.get(user, 'followers', array);
+        if (db.length < 1) {
+            array.push(follower);
+        } else {
+            for(let i = 0; i < db.length; i++) {
+                array.push(db[i]);
+            }
+            array.push(follower);
+        }
+        await this.client.settings.set(user, 'followers', array);
+    }
+
 }

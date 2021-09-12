@@ -24,7 +24,7 @@ const DatabaseHandler = require('./src/handlers/DatabaseHandler');
 // const RadaScheduler = require('./lib/modules/RadaScheduler');
 const RadaReminder = require('./lib/modules/RadaReminder');
 const SlashHandler = require('./src/handlers/SlashHandler');
-const { emotes, clientColor, badges } = require('./lib/util/constants');
+const { emotes, clientColor, badges, badgeUrls } = require('./lib/util/constants');
 
 
 require('dotenv').config();
@@ -133,22 +133,26 @@ class RadaClient extends AkairoClient {
         return daysDiff.toFixed(0);
     }
 
-    displayFlags(user, emojify = true) {
+    displayFlags(user, emojify = true, linkify = false) {
         let badgeArray = [];
+        let badgeUrlArray = [];
         try { user.flags.toArray(); } catch (e) { return []; }
         let flags = user.flags.toArray();
         for (const flag of flags) {
             badgeArray.push(badges[flag])
+            badgeUrlArray.push(badgeUrls[flag])
         }
         if (user.avatarURL() && ['.gif', '.webm'].some(type => user.avatarURL({ dynamic: true }).endsWith(type))) {
             badgeArray.push(badges['NITRO']);
+            badgeUrlArray.push(badgeUrls['NITRO']);
         }
-        if (!emojify) {
+        if (!emojify && !linkify) {
             if (user.avatarURL() && ['.gif', '.webm'].some(type => user.avatarURL({ dynamic: true }).endsWith(type))) {
                 flags.push('NITRO');
             }
             return flags;
         }
+        return linkify ? badgeUrlArray : badgeArray
         return badgeArray;
     }
 
