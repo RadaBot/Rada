@@ -110,7 +110,7 @@ module.exports = class DatabaseHandler {
         }
         warnings.forEach(async(warning) => {
             const key = `${warning.guild_id}.${warning.user}`;
-            await this.client.settings.clear(key, 'warnings');
+            await this.client.settings.delete(key, 'warnings');
             return true;
         })
     }
