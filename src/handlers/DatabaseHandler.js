@@ -129,4 +129,19 @@ module.exports = class DatabaseHandler {
         await this.client.settings.set(user, 'followers', array);
     }
 
+    addFilterWord = async (guildId, word) => {
+        let array = [];
+        let db = await this.client.settings.get(guildId, 'filteredwords', array);
+        if (db.length < 1) {
+            array.push(word);
+        } else {
+            for (let i = 0; i < db.length; i++) {
+                array.push(db[i]);
+            }
+            array.push(word);
+        }
+        await this.client.settings.set(guildId, 'filteredwords', array);
+        return await this.client.settings.get(guildId, 'filteredwords', array);
+    }
+
 }
