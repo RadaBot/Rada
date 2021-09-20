@@ -9,7 +9,8 @@ module.exports = class Antilink extends Inhibitor {
         });
         this.cache = new Set();
         this.regex = {
-            invites: /discord(?:(\.(?:me|io|li|gg|com)|sites\.com|list\.me)\/.{0,4}|app\.com.{1,4}(?:invite|api|oauth2).{0,5}\/)\w+/ig
+            // invites: /discord(?:(\.(?:me|io|li|gg|com)|sites\.com|list\.me)\/.{0,4}|app\.com.{1,4}(?:invite|api|oauth2).{0,5}\/)\w+/ig
+            invites: /(discord.(gg|io|me|li)|discordapp.com\/(invite|oauth2)|discord.com\/(invite|oauth2))\/[a-zA-Z0-9]+/ig
         }
     }
 
