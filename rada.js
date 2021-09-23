@@ -20,6 +20,7 @@ const Util = require('./lib/classes/Util');
 const config = require('./src/config');
 const ButtonPaginator = require('./lib/classes/ButtonPaginator');
 const ButtonConfirmer = require('./lib/classes/ButtonConfirmer');
+const RegexBuilder = require('./lib/classes/RegexBuilder');
 const DatabaseHandler = require('./src/handlers/DatabaseHandler');
 // const RadaScheduler = require('./lib/modules/RadaScheduler');
 const RadaReminder = require('./lib/modules/RadaReminder');
@@ -69,6 +70,7 @@ class RadaClient extends AkairoClient {
         this.databaseHandler = new DatabaseHandler(this);
         this.buttonPaginator = new ButtonPaginator(this);
         this.buttonConfirmer = new ButtonConfirmer(this);
+        this.regexBuilder = new RegexBuilder();
         this.beautify = beautify
         this.chalk = chalk;
         this.Util = Util;
@@ -153,7 +155,6 @@ class RadaClient extends AkairoClient {
             return flags;
         }
         return linkify ? badgeUrlArray : badgeArray
-        return badgeArray;
     }
 
     timeFormat(ts, date, encased = false) {
