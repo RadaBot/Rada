@@ -29,15 +29,8 @@ module.exports = class SwearFilter extends Inhibitor {
                             return message.reply(`${error} | ${message.author.toString()} **using that word is not allowed**\nI lack the permission to manage messages so I was unable to delete the message.`);
                         }
                     }
-                } else if (message.content.includes(word)) {
-                    if (message.author.id === message.guild.ownerId) return;
-                    if (message.guild.me.permissions.has('MANAGE_MESSAGES')) {
-                        await message.reply(`${error} | ${message.author.toString()} **using that word is not allowed**`);
-                        message.delete();
-                        return;
-                    } else {
-                        return message.reply(`${error} | ${message.author.toString()} **using that word is not allowed**\nI lack the permission to manage messages so I was unable to delete the message.`);
-                    }
+                } else {
+                    console.log(`[RegexBuilder] Error: ${regex.message}`);
                 }
             }
         } else {
