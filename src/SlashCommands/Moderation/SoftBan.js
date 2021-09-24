@@ -11,6 +11,17 @@ module.exports = {
             .setName('user').setDescription('The user you want to softban')
             .setRequired(true)
         )
+        .addIntegerOption((option) => option
+            .setName('days')
+            .setDescription('How many days of messages to remove. Default: 1 day')
+            .addChoice('1', 1)
+            .addChoice('2', 2)
+            .addChoice('3', 3)
+            .addChoice('4', 4)
+            .addChoice('5', 5)
+            .addChoice('6', 6)
+            .addChoice('7', 7)
+        )
         .addStringOption((option) => option
             .setName('reason')
             .setDescription('Optional softban reason')
@@ -21,6 +32,7 @@ module.exports = {
     async execute(interaction, client) {
         let user = interaction.options.getUser('user');
         let reason = interaction.options.getString('reason') || 'Not provided';
+        let days = interaction.options.getInteger('days') || 1;
         let embed = client.util.embed()
             .setColor(client.misc.color)
             .setTimestamp()
@@ -68,7 +80,7 @@ module.exports = {
                 case "confirm":
                     if (interaction.user.id !== firstInteraction.user.id) return;
                     await interaction.guild.members.cache.get(user.id).ban({
-                        days: 7,
+                        days: days,
                         reason: `Banned by ${firstInteraction.user.username} for ${reason}`
                     })
                         .then(async() => {
