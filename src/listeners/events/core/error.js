@@ -1,5 +1,5 @@
 const { Listener } = require('discord-akairo');
-const { production } = require('../config');
+const { production } = require('../../../config');
 
 module.exports = class ErrorListener extends Listener {
     constructor() {
