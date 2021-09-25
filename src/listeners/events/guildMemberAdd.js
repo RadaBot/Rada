@@ -13,7 +13,7 @@ module.exports = class GuildMemberAddListener extends Listener {
         let message = this.client.settings.get(member.guild.id, 'ws.join', false);
         let userAutorole = member.guild.roles.cache.get(this.client.settings.get(member.guild.id, 'autorole.user', null));
         let botAutorole = member.guild.roles.cache.get(this.client.settings.get(member.guild.id, 'autorole.bot', null));
-        if (userAutorole && !member.roles.cache.has(userAutorole)) {
+        if (userAutorole && !member.user.bot && !member.roles.cache.has(userAutorole)) {
             await member.roles.add(userAutorole, 'User Autorole');
         }
         if (botAutorole && member.user.bot && !member.roles.cache.has(botAutorole)) {

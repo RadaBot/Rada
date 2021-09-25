@@ -48,7 +48,7 @@ module.exports = class InteractionListener extends Listener {
             });
             let embed = this.client.util.embed()
                 .setColor(this.client.misc.color)
-                .setTitle('Error')
+                .setTitle('Command error')
                 .setDescription(`Guild: **${interaction.guild.name}**\nUser: \`${interaction.user.tag} (${interaction.user.id})\`\nCommand: \`${command.data.name}\`\n\n${Util.codeBlock('properties', error.stack)}`)
                 .setTimestamp()
             if (production) {
