@@ -68,7 +68,7 @@ class SlashHandler {
                 });
             } else {
                 return await rest.put(Routes.applicationGuildCommands(this.client.user.id, devGuild), {
-                    body: this.commands
+                    body: []
                 });
             }
         } catch (error) {
