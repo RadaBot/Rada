@@ -45,6 +45,7 @@ module.exports = {
             let userJoinedAt = `${client.timeFormat('dddd d MMMM YYYY', member.joinedAt, true)}`;
             let userCreatedAt = `${client.timeFormat('dddd d MMMM YYYY', member.user.createdAt, true)}`;
             let badges = client.displayFlags(user);
+            let aboutMe = client.settings.get(user.id, 'about', false);
             let embed = client.util.embed()
                 .setColor(client.misc.color)
                 .setTitle(`User Information | \`${user.tag}\``)
@@ -60,6 +61,9 @@ module.exports = {
             }
             if (badges.length > 0) {
                 embed.addField('Badges', badges.join(''))
+            }
+            if (aboutMe) {
+                embed.addField('About me', `> ${client.Util.trimString(aboutMe.split('\n').join('\n> '), 980)}\n\n*Update your about me [here](https://radabot.net/users/@me)*`)
             }
             return await interaction.reply({
                 embeds: [embed]
