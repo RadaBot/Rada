@@ -14,12 +14,17 @@ module.exports = {
         .addStringOption((option) => option
             .setName('duration')
             .setDescription('How long do you want to mute them for (ex. 12h, 1d, 30m)')
+        )
+        .addStringOption((option) => option
+            .setName('reason')
+            .setDescription('Optional mute reason')
         ),
     category: 'Moderation',
     description: 'Mute a user in the server',
     async execute(interaction, client) {
         let user = interaction.options.getUser('user');
         let duration = interaction.options.getString('duration');
+        let reason = interaction.options.getString('reason');
         let muteRole = interaction.guild.roles.cache.find(r => r.name.toLowerCase().includes('muted'));
         let fetched = await interaction.guild.members.fetch(user.id, { force: true });
         let member = interaction.guild.members.cache.get(fetched.id);
@@ -99,11 +104,11 @@ module.exports = {
             })
         }
         let role = await client.settings.get(interaction.guild.id, 'muterole');
-        await member.roles.add(role, `Muted by ${interaction.user.username}`);
+        await member.roles.add(role, `Muted by ${interaction.user.username} | ${reason || "No reason provided"}`);
         if (!duration) {
-            await member.roles.add(role, `Permanently muted by ${interaction.user.username}`);
+            await member.roles.add(role, `Permanently muted by ${interaction.user.username} | ${reason || "No reason provided"}`);
             return await interaction.editReply({
-                content: `${completedText}${emotes.success} | Permanently muted \`${user.tag} (${user.id})\``
+                content: `${completedText}${emotes.success} | Permanently muted \`${user.tag} (${user.id})\`${reason ? `\nReason: \`${reason}\`` : ''}`
             });
         }
         if (isNaN(ms(duration))) {
@@ -116,12 +121,12 @@ module.exports = {
         let parsedTime = ms(duration, { long: true });
         let time = ms(parsedTime, { long: true });
         await interaction.editReply({
-            content: `${completedText}${emotes.success} | Muted \`${user.tag} (${user.id})\` for \`${time}\``
+            content: `${completedText}${emotes.success} | Muted \`${user.tag} (${user.id})\` for \`${time}\`${reason ? `\nReason: \`${reason}\`` : ''}`
         });
         await member.roles.add(role, `Muted for ${time} by ${interaction.user.username}`);
         setTimeout(async() => {
             if (member.roles.cache.has(role)) {
-                await member.roles.remove(role, `Automatic unmute - Muted for ${time} by ${interaction.user.username}`)
+                await member.roles.remove(role, `Automatic unmute - Muted for ${time} by ${interaction.user.username} | ${reason || "No reason provided"}`)
                     .then(async() => {
                         return await interaction.editReply({
                             content: `${completedText}${emotes.success} | Automatically unmuted \`${user.tag} (${user.id})\` after being muted for \`${time}\`\n\nUnmuted: <t:${parseInt(Date.now() / 1000)}:F>`
