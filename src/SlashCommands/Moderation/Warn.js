@@ -16,6 +16,7 @@ module.exports = {
         ),
     category: 'Moderation',
     description: 'Warn a user breaking the rules',
+    permissions: ['MUTE_MEMBERS'],
     async execute(interaction, client) {
         let user = interaction.options.getUser('user');
         let reason = interaction.options.getString('reason');

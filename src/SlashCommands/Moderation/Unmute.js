@@ -11,6 +11,7 @@ module.exports = {
         ),
     category: 'Moderation',
     description: 'Mute a user in the server',
+    permissions: ['MUTE_MEMBERS'],
     async execute(interaction, client) {
         let user = interaction.options.getUser('user');
         let muteRole = interaction.guild.roles.cache.find(r => r.name.toLowerCase().includes('muted'))??

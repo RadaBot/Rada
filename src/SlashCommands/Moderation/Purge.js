@@ -11,6 +11,7 @@ module.exports = {
         ),
     category: 'Moderation',
     description: 'Bulk delete up to 100 messages from the channel',
+    permissions: ['MANAGE_MESSAGES'],
     async execute(interaction, client) {
         await interaction.deferReply()
         let amount = parseInt(interaction.options.getInteger('amount').toString().replace('-', ''));

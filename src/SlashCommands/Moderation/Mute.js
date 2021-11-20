@@ -21,6 +21,7 @@ module.exports = {
         ),
     category: 'Moderation',
     description: 'Mute a user in the server',
+    permissions: ['MUTE_MEMBERS'],
     async execute(interaction, client) {
         let user = interaction.options.getUser('user');
         let duration = interaction.options.getString('duration');
