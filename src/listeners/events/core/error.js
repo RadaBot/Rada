@@ -20,7 +20,7 @@ module.exports = class ErrorListener extends Listener {
         let embed = this.client.util.embed()
             .setColor(this.client.misc.color)
             .setTitle('Client error')
-            .setDescription(`Guild: **${message.guild ? message.guild.name : 'Unknown'}**\nUser: \`${message.author ? `${message.author} (${interaction.user.id})` : 'Unknown'}\`\n\n${Util.codeBlock('properties', error.stack)}`)
+            .setDescription(`Guild: **${message.guild ? message.guild.name : 'Unknown'}**\nUser: \`${message.author ? `${message.author} (${message.author.id})` : 'Unknown'}\`\n\n${Util.codeBlock('properties', error.stack)}`)
             .setTimestamp()
         if (production) {
             this.client.channels.cache.get('787745780432764948').send({
