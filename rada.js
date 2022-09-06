@@ -8,6 +8,7 @@ const {
 } = require('discord-akairo');
 const { Intents, Collection } = require('discord.js');
 const { Timestamp } = require('@skyra/timestamp');
+const Snowflake = require('snowflake-util');
 const Flipnote = require('alexflipnote.js');
 const beautify = require('js-beautify').js;
 const google = require('google-it');
@@ -71,6 +72,7 @@ class RadaClient extends AkairoClient {
         this.buttonPaginator = new ButtonPaginator(this);
         this.buttonConfirmer = new ButtonConfirmer(this);
         this.regexBuilder = new RegexBuilder();
+        this.snowflake = new Snowflake();
         this.beautify = beautify
         this.chalk = chalk;
         this.Util = Util;
