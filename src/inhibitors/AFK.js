@@ -11,13 +11,11 @@ module.exports = class AFK extends Inhibitor {
 
         async exec(message) {
             if (message.author.bot) return;
-            let user = await this.client.users.fetch(message.author.id, { force: true });
-            let author = this.client.users.cache.get(user.id);
-            let afkStatus = await this.client.settings.get(author.id, 'afk', { afk: false, message: null, started: null });
+            let afkStatus = await this.client.settings.get(message.author.id, 'afk', { afk: false, message: null, started: null });
             let afkSince = afkStatus.started;
-            let afkPings = await this.client.settings.get(author.id, 'afkPings', []);
+            let afkPings = await this.client.settings.get(message.author.id, 'afkPings', []);
             if (afkStatus.afk) {
-                await this.client.settings.set(author.id, 'afk', { afk: false, message: null, started: null });
+                await this.client.settings.set(message.author.id, 'afk', { afk: false, message: null, started: null });
                 let embed = this.client.util.embed()
                     .setAuthor(`AFK ➜ ${message.author.username}`, message.author.avatarURL({ dynamic: true }))
                     .setDescription(`Your AFK mode has been turned off.${afkPings.length > 0 ? `\nWhile you was away, you was @mentioned **${afkPings.length} times**.\nDo you want to see the @mentions you got? (Use the buttons below)` : ''}`)
