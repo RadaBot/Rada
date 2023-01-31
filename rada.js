@@ -242,7 +242,7 @@ class RadaClient extends AkairoClient {
         let dayOfWeek = formats.days[date.getDay()];
         let dayOfMonth = date.getDate().toString();
         let month = formats.month[date.getMonth()];
-        let formatted = dayOfMonth.substring(2).length > 0 ? formats.date[dayOfMonth.substring(2)] : formats.date[dayOfMonth];
+        let formatted = dayOfMonth.substring(1).length > 0 ? formats.date[dayOfMonth.substring(1)] : formats.date[dayOfMonth];
         return `${dayOfWeek} ${dayOfMonth}${formatted} ${month} | ${date.toLocaleTimeString()}`;
     }
 
