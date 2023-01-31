@@ -26,12 +26,12 @@ module.exports = {
         .addIntegerOption((option) => option
             .setName('depth')
             .setDescription('The number of times to recurse while formatting an object.')
-            .addChoices([
-                ['1', 1],
-                ['2', 2],
-                ['3', 3],
-                ['4', 4],
-            ]),
+            .addChoices(
+                { name: '1', value: 1 },
+                { name: '2', value: 2 },
+                { name: '3', value: 3 },
+                { name: '4', value: 4 },
+            )
         ),
     ownerOnly: true,
     category: 'Owner',

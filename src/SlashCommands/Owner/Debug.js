@@ -7,8 +7,10 @@ module.exports = {
         .addStringOption((option) => option
             .setName('toggle')
             .setDescription('Do you want to enable or disable debug logging')
-            .addChoice('enable', 'on')
-            .addChoice('disable', 'off')
+            .addChoices(
+                { name: 'enable', value: 'on' },
+                { name: 'disable', value: 'off' },
+            )
             .setRequired(true)
         ),
     ownerOnly: true,

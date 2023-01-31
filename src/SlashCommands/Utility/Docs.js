@@ -13,12 +13,14 @@ module.exports = {
         .addStringOption((option) => option
             .setName('branch')
             .setDescription('What branch do you want to search on? (Default: stable)')
-            .addChoice('stable', 'stable')
-            .addChoice('master', 'master')
-            .addChoice('commando', 'commando')
-            .addChoice('rpc', 'rpc')
-            .addChoice('akairo', 'akairo')
-            .addChoice('akairo-master', 'akairo-master')
+            .addChoices(
+                { name: 'stable', value: 'stable' },
+                { name: 'master', value: 'master' },
+                { name: 'commando', value: 'commando' },
+                { name: 'rpc', value: 'rpc' },
+                { name: 'akairo', value: 'akairo' },
+                { name: 'akairo-master', value: 'akairo-master' },
+            )
         ),
     category: 'Utility',
     description: 'Search the discord.js docs',

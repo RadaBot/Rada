@@ -16,11 +16,13 @@ module.exports = {
             .addStringOption((option) => option
                 .setName('type')
                 .setDescription('The type of the channel you want to create')
-                .addChoice('Text', 'GUILD_TEXT')
-                .addChoice('Voice', 'GUILD_VOICE')
-                .addChoice('Category', 'GUILD_CATEGORY')
-                .addChoice('Stage', 'GUILD_STAGE_VOICE')
-                .addChoice('News', 'GUILD_NEWS')
+                .addChoices(
+                    { name: 'Text', value: 'GUILD_TEXT' },
+                    { name: 'Voice', value: 'GUILD_VOICE' },
+                    { name: 'Category', value: 'GUILD_CATEGORY' },
+                    { name: 'Stage', value: 'GUILD_STAGE_VOICE' },
+                    { name: 'News', value: 'GUILD_NEWS' },
+                )
                 .setRequired(true)
             )
             .addChannelOption((option) => option

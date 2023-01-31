@@ -10,13 +10,15 @@ module.exports = {
             .addStringOption((option) => option
                 .setName('toggle')
                 .setDescription('Enable or disable here')
-                .addChoice('On', 'on')
-                .addChoice('Off', 'off')
+                .addChoices(
+                    { name: 'On', value: 'on' },
+                    { name: 'Off', value: 'off' },
+                )
             )
             .addStringOption((option) => option
                 .setName('reset')
                 .setDescription('Do you want to reset to default?')
-                .addChoice('Yes', 'true')
+                .addChoices({ name: 'Yes', value: 'true' })
             )
         )
         .addSubcommand((subcommand) => subcommand
@@ -25,8 +27,10 @@ module.exports = {
             .addStringOption((option) => option
                 .setName('type')
                 .setDescription('Who the role should be given to')
-                .addChoice('Bots', 'bot')
-                .addChoice('Users', 'user')
+                .addChoices(
+                    { name: 'Bots', value: 'bot' },
+                    { name: 'Users', value: 'user' },
+                )
             )
             .addRoleOption((option) => option
                 .setName('role')
@@ -35,7 +39,7 @@ module.exports = {
             .addStringOption((option) => option
                 .setName('reset')
                 .setDescription('Do you want to reset to default?')
-                .addChoice('Yes', 'true')
+                .addChoices({ name: 'Yes', value: 'true' })
             )
         )
         .addSubcommand((subcommand) => subcommand
@@ -48,7 +52,7 @@ module.exports = {
             .addStringOption((option) => option
                 .setName('reset')
                 .setDescription('Do you want to reset to default?')
-                .addChoice('Yes', 'true')
+                .addChoices({ name: 'Yes', value: 'true' })
             )
         ),
     category: 'Config',

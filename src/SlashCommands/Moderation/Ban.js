@@ -14,14 +14,16 @@ module.exports = {
         .addIntegerOption((option) => option
             .setName('days')
             .setDescription('How many days of messages to remove')
-            .addChoice('0', 0)
-            .addChoice('1', 1)
-            .addChoice('2', 2)
-            .addChoice('3', 3)
-            .addChoice('4', 4)
-            .addChoice('5', 5)
-            .addChoice('6', 6)
-            .addChoice('7', 7)
+            .addChoices(
+                { name: '0', value: 0 },
+                { name: '1', value: 1 },
+                { name: '2', value: 2 },
+                { name: '3', value: 3 },
+                { name: '4', value: 4 },
+                { name: '5', value: 5 },
+                { name: '6', value: 6 },
+                { name: '7', value: 7 },
+            )
         )
         .addStringOption((option) => option
             .setName('reason')

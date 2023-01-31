@@ -11,7 +11,7 @@ module.exports = {
         .addStringOption((option) => option
             .setName('clear')
             .setDescription('Do you want to clear the advertising history?')
-            .addChoice('Yes', 'true')
+            .addChoices({ name: 'Yes', value: 'true' })
         ),
     category: 'Moderation',
     description: 'Display the advertising history (antilink) of a user',

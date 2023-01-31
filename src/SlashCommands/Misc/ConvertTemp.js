@@ -12,8 +12,10 @@ module.exports = {
         .addStringOption((option) => option
             .setName('to')
             .setDescription('The temperature unit you want to convert to (F or C)')
-            .addChoice('Fahrenheit', 'f')
-            .addChoice('Celcius', 'c')
+            .addChoices(
+                { name: 'Fahrenheit', value: 'f' },
+                { name: 'Celcius', value: 'c' },
+            )
             .setRequired(true)
         ),
     category: 'Misc',

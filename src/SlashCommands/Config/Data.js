@@ -11,7 +11,7 @@ module.exports = {
             .addStringOption((option) => option
                 .setName('clear')
                 .setDescription('Do you want to clear your data?')
-                .addChoice('Yes', 'true')
+                .addChoices({ name: 'Yes', value: 'true' })
             )
         )
         .addSubcommand((subcommand) => subcommand
@@ -20,7 +20,7 @@ module.exports = {
         .addStringOption((option) => option
             .setName('clear')
             .setDescription('Do you want to clear your data?')
-            .addChoice('Yes', 'true')
+            .addChoices({ name: 'Yes', value: 'true' })
         )
     ),
     category: 'Config',

@@ -14,7 +14,7 @@ module.exports = {
             .addStringOption((option) => option
                 .setName('reset')
                 .setDescription('Do you want to reset to default?')
-                .addChoice('Yes', 'true')
+                .addChoices({ name: 'Yes', value: 'true' })
             )
         )
         .addSubcommand((subcommand) => subcommand
@@ -27,7 +27,7 @@ module.exports = {
             .addStringOption((option) => option
                 .setName('reset')
                 .setDescription('Do you want to reset to default?')
-                .addChoice('Yes', 'true')
+                .addChoices({ name: 'Yes', value: 'true' })
             )
         )
         .addSubcommand((subcommand) => subcommand
@@ -40,7 +40,7 @@ module.exports = {
             .addStringOption((option) => option
                 .setName('reset')
                 .setDescription('Do you want to reset to default?')
-                .addChoice('Yes', 'true')
+                .addChoices({ name: 'Yes', value: 'true' })
             )
         )
         .addSubcommand((subcommand) => subcommand
